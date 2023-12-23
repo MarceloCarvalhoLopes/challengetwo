@@ -2,7 +2,7 @@ package com.devsuperior.challengetwo.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_participant")
@@ -11,7 +11,14 @@ public class Participant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true)
     private String email;
+
+    @ManyToMany
+    @JoinTable(name="tb_participant_activity",
+            joinColumns = @JoinColumn(name ="participant_id"),
+            inverseJoinColumns = @JoinColumn(name = "activity_id"))
+    private Set<Activity> activities = new HashSet<>();
 
     public Participant() {
     }
@@ -44,6 +51,10 @@ public class Participant {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Activity> getActivities() {
+        return activities;
     }
 
     @Override
