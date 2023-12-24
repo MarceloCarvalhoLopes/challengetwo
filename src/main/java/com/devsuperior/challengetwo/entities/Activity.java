@@ -23,9 +23,13 @@ public class Activity {
     @ManyToMany(mappedBy = "activities")
     private Set<Participant> participants = new HashSet<>();
 
+    @OneToMany(mappedBy = "activity")
+    private List<Block> blocks = new ArrayList<>();
+
     public Set<Participant> getParticipants() {
         return participants;
     }
+
 
     public Activity() {
     }
@@ -76,6 +80,10 @@ public class Activity {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<Block> getBlocks() {
+        return blocks;
     }
 
     @Override
